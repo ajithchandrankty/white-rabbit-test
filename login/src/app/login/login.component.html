@@ -1,0 +1,89 @@
+<div class="alert alert-success" role="alert" *ngIf='successMessage'>
+  You have successfully logged in
+</div>
+<div class="alert alert-warning" role="alert" *ngIf='errorMessage'>
+  Invalid username or password
+</div>
+<div class='col-md-6 form-container' *ngIf='!savedUserList.length'>
+  <!-- Login Form -->
+  <div *ngIf='!showCreateForm'>
+
+    <form [formGroup]='validateUserForm'>
+      <div class="form-group col-md-6">
+        <label for="exampleInputEmail1">Email address</label>
+        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+          placeholder="Enter email" formControlName='userName'>
+        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+      </div>
+      <div class="form-group col-md-6">
+        <label for="exampleInputPassword1">Password</label>
+        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password"
+          formControlName='password'>
+      </div>
+      <div class="form-check">
+      </div>
+      <button type="button" class="btn btn-sm btn-primary submit-button" (click)='toggleCreateUserForm()'>Create user</button>
+      <button type="submit" class="btn btn-sm btn-primary submit-button" (click)='validateUser(validateUserForm)'
+        [disabled]='validateUserForm.status !== "VALID"'>Submit</button>
+    </form>
+  </div>
+
+  <!-- Create User Form -->
+  <div *ngIf='showCreateForm'>
+    <form [formGroup]='userCreationForm'>
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="inputEmail4">Gender</label>
+          <select class="form-select" aria-label="Default select example" formControlName='gender'>
+            <option value="gender">Gender</option>
+            <option value="1">Male</option>
+            <option value="2">Female</option>
+          </select> </div>
+        <div class="form-group col-md-6">
+          <label for="inputPassword4">Name</label>
+          <input type="text" class="form-control" id="inputPassword4" placeholder="name" formControlName='name'>
+        </div>
+      </div>
+      <div class="form-group col-md-6">
+        <label for="inputAddress">Email</label>
+        <input type="email" class="form-control" id="inputAddress" placeholder="Email" formControlName='email'>
+      </div>
+      <div class="form-group col-md-6">
+        <label for="username">Username</label>
+        <input type="text" class="form-control" id="username" placeholder="Username" formControlName='userName'>
+      </div>
+      <div class="form-group col-md-6">
+        <label for="password">Password</label>
+        <input type="password" class="form-control" id="password" placeholder="Password" formControlName='password'>
+      </div>
+      <div class="form-group col-md-6">
+        <label for="dateOfBirth">Date of Birth</label>
+        <input class="form-control" type="date" name='dateOfBirth' value="2011-08-19" id="example-date-input"
+          formControlName='dateOfBirth'>
+      </div>
+      <div class="form-group col-md-6">
+        <label for="phone">Phone</label>
+        <input type="tel" class="form-control" id="phone" placeholder="Phone" formControlName='phone'>
+      </div>
+
+      <button type="submit" class="btn btn-sm btn-primary sign-in-submit-button" (click)='submitUser(userCreationForm)'>Sign
+        in</button>
+      <button type="button" class='btn btn-sm btn-primary sign-in-submit-button' (click)='cancelSubmit()'>Cancel</button>
+    </form>
+  </div>
+</div>
+<div class="col-md-6 form-container" *ngIf='savedUserList.length'>
+  <ul class="list-group">
+    <li class="list-group-item" *ngFor='let data of savedUserList' (click)='selectUser(data)'>
+      <ul>
+        <li>{{data.name}}</li>
+        <li>{{data.gender}}</li>
+        <li>{{data.email}}</li>
+        <li>{{data.dateOfBirth}}</li>
+        <li>{{data.phone}}</li>
+        <li>{{data.userName}}</li>
+        <li>{{data.password}}</li>
+      </ul>
+    </li>
+  </ul>
+</div>

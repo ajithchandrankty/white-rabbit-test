@@ -1,0 +1,9 @@
+<ul class="list-group">
+    <li class="list-group-item" *ngFor='let data of usersData'>
+        <ul>
+            <li>{{data.user.name.title}} {{data.user.name.first}} {{data.user.name.last}}</li>
+            <li>{{data.user.gender}}</li>
+            <li>{{data.user.email}}</li>
+        </ul>
+    </li>
+  </ul>
